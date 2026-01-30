@@ -3,6 +3,22 @@ import google.generativeai as genai
 from tavily import TavilyClient
 import time
 
+# --- デバッグ用コード (確認が終わったら消してください) ---
+import streamlit as st
+
+st.write("--- Debug Info ---")
+if "GEMINI_API_KEY" in st.secrets:
+    st.success(f"✅ Gemini Key found! (Ends with: ...{st.secrets['GEMINI_API_KEY'][-4:]})")
+else:
+    st.error("❌ Gemini Key NOT found in Secrets.")
+
+if "TAVILY_API_KEY" in st.secrets:
+    st.success(f"✅ Tavily Key found! (Ends with: ...{st.secrets['TAVILY_API_KEY'][-4:]})")
+else:
+    st.error("❌ Tavily Key NOT found in Secrets.")
+st.write("------------------")
+# ----------------------------------------------------
+
 # --- 設定: ページ構成 ---
 st.set_page_config(page_title="VC Insight Agent", layout="wide")
 
@@ -145,4 +161,5 @@ if st.button("🚀 調査エージェントを起動", type="primary"):
         except Exception as e:
 
             st.error(f"エラーが発生しました: {e}")
+
 
