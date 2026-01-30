@@ -12,14 +12,18 @@ st.markdown("""
 **AIが自律的にWeb検索を行い、競合他社を特定し、比較分析レポートを作成**します。
 """)
 
-# --- サイドバー: APIキー設定 (デモ用) ---
+# ★ここが変更点：サイドバーで入力させるのではなく、裏側(Secrets)から読み込む
+# もしSecretsが設定されていなければ、エラーを出さずにNoneにする安全策
+gemini_key = st.secrets.get("GEMINI_API_KEY")
+tavily_key = st.secrets.get("TAVILY_API_KEY")
+
+# (万が一Secrets設定を忘れた時のために、サイドバー入力も残す場合の書き方)
 with st.sidebar:
-    st.header("⚙️ API Key Settings")
-    gemini_key = st.text_input("Gemini API Key", value="AIzaSyAsw4db7Glv4lP1b3_tDwKjGkwSMlnMZ-Q", type="password")
-    # value にキーを入れ、type は "password" にします
-    tavily_key = st.text_input("Tavily API Key", value="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", type="password")
-    
-    st.info("※デモ用にキーを直接入力できます。本番環境では環境変数で管理します。")
+    # Secretsになければ入力欄を出す
+    if not gemini_key:
+        gemini_key = st.text_input("Gemini API Key", type="password")
+    if not tavily_key:
+        tavily_key = st.text_input("Tavily API Key", type="password")
 
 # --- メインロジック ---
 
@@ -141,3 +145,4 @@ if st.button("🚀 調査エージェントを起動", type="primary"):
         except Exception as e:
 
             st.error(f"エラーが発生しました: {e}")
+
