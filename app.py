@@ -15,7 +15,7 @@ st.markdown("""
 # --- サイドバー: APIキー設定 (デモ用) ---
 with st.sidebar:
     st.header("⚙️ API Key Settings")
-    gemini_key = st.text_input("Gemini API Key", value="AIzaSyBVR0Jz5Lm2iykQg8J77Gy8J0mmvo5IW28", type="password")
+    gemini_key = st.text_input("Gemini API Key", value="AIzaSyAsw4db7Glv4lP1b3_tDwKjGkwSMlnMZ-Q", type="password")
     # value にキーを入れ、type は "password" にします
     tavily_key = st.text_input("Tavily API Key", value="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", type="password")
     
@@ -139,4 +139,5 @@ if st.button("🚀 調査エージェントを起動", type="primary"):
             st.markdown(report)
             
         except Exception as e:
+
             st.error(f"エラーが発生しました: {e}")
